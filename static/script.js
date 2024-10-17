@@ -37,7 +37,6 @@ async function AddAlert(alert) {
 eventSource.onmessage = (e) => {
     try {
         const data = JSON.parse(e.data);
-        console.log("Received JSON data:", data);
         if (data.eventType === "weather_data") {
             updateChart(data);
         } else if (data.eventType === "alert_data") {
@@ -82,7 +81,7 @@ function createChart(city) {
         <div id="${city}-weather-data" class="weather-data"></div>
     `;
     document.getElementById('charts-container').appendChild(chartContainer);
-    
+
     const chart = CreateNewChart(`${city}-chart`)
 
     // Add event listener for the button
@@ -156,12 +155,23 @@ function displayWeatherData(city, data) {
 function displayHistoryChart(city, data) {
     container = document.getElementById("historical-data")
     container.innerHTML = `
-            <h2>${city}</h2>
+            <h2>${city} Historical Data</h2>
         <canvas id="${city}-history-chart"></canvas>`
+    scrollToElement(`${city}-history-chart`)
     const chart = CreateNewChart(`${city}-history-chart`)
     data.map((d) => {
         chart.data.labels.push(new Date(d.dt * 1000).toLocaleTimeString())
         chart.data.datasets[0].data.push(d.temperature);
         chart.update()
     })
+}
+
+function scrollToElement(id) {
+    var element = document.getElementById(id);
+    console.log(element)
+    if (element) {
+        element.scrollIntoView({
+            behavior: 'smooth',
+        });
+    }
 }
