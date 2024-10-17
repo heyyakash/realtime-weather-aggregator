@@ -8,4 +8,5 @@ type DailyStats struct {
 	MinTemp         float64   `json:"minTemp"`
 	DominantWeather string    `json:"dominantWeather"`
 	Day             time.Time `json:"day"`
+	City            string    `json:"city"`
 }

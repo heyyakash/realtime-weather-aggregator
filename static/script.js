@@ -1,6 +1,21 @@
 const eventSource = new EventSource("http://localhost:8080/events");
 const cityCharts = {};
 
+
+async function fetchCityData(city) {
+    try {
+        const response = await fetch(`http://localhost:8080/daily?city=${city}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Failed to fetch city data:', error);
+        return null;
+    }
+}
+
+
 eventSource.onmessage = (e) => {
     try {
         const data = JSON.parse(e.data);
@@ -27,7 +42,12 @@ function updateChart(data) {
 function createChart(city) {
     const chartContainer = document.createElement('div');
     chartContainer.classList.add('chart-container');
-    chartContainer.innerHTML = `<h2>${city}</h2><canvas id="${city}-chart"></canvas>`;
+    chartContainer.innerHTML = `
+        <h2>${city}</h2>
+        <canvas id="${city}-chart"></canvas>
+        <button style = "margin:10px" id="${city}-fetch-button">Fetch Daily Weather</button>
+        <div id="${city}-weather-data" class="weather-data"></div>
+    `;
     document.getElementById('charts-container').appendChild(chartContainer);
 
     const ctx = document.getElementById(`${city}-chart`).getContext('2d');
@@ -64,5 +84,24 @@ function createChart(city) {
         },
     });
 
+    // Add event listener for the button
+    document.getElementById(`${city}-fetch-button`).addEventListener('click', async () => {
+        const data = await fetchCityData(city);
+        if (data) {
+            displayWeatherData(city, data);
+        }
+    });
+
     return chart;
+}
+
+function displayWeatherData(city, data) {
+    const weatherDataContainer = document.getElementById(`${city}-weather-data`);
+    weatherDataContainer.innerHTML = `
+        <p><strong>Average Temp:</strong> ${data.avgTemp} °C</p>
+        <p><strong>Max Temp:</strong> ${data.maxTemp} °C</p>
+        <p><strong>Min Temp:</strong> ${data.minTemp} °C</p>
+        <p><strong>Dominant Weather:</strong> ${data.dominantWeather}</p>
+        <p><strong>Day:</strong> ${new Date(data.day).toLocaleDateString()}</p>
+    `;
 }
