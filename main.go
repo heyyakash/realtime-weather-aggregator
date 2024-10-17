@@ -2,36 +2,18 @@ package main
 
 import (
 	"fmt"
-	"log"
-	"net/http"
-	"time"
+
+	"github.com/heyyakash/realtime-weather-aggregator/helpers"
 )
 
-func main() {
-	http.HandleFunc("/events", eventsHandler)
-	if err := http.ListenAndServe(":8080", nil); err != nil {
-		log.Println("Error starting the server : ", err)
-	}
+var Cities = []string{"Bangalore", "Delhi"}
+
+func FetchWeatherData() {
+	key := helpers.GetEnv("API_KEY")
+	body := helpers.FetchWeatherData("Bangalore", key)
+	fmt.Print(body.Weather[0].Description)
 }
 
-func eventsHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Content-Type", "text/event-stream")
-	w.Header().Set("Cache-Control", "no-cache")
-	w.Header().Set("Connection", "keep-alive")
-
-	log.Print("Client connected")
-	ctx := r.Context()
-
-	for i := 0; i < 10; i++ {
-		select {
-		case <-ctx.Done():
-			log.Print("Client disconnected")
-			return
-		default:
-			fmt.Fprintf(w, "data: %s\n\n", fmt.Sprintf("Event %d", i))
-			w.(http.Flusher).Flush()
-			time.Sleep(2 * time.Second)
-		}
-	}
+func main() {
+	FetchWeatherData()
 }
