@@ -55,5 +55,15 @@ func FetchWeatherData(city string, key string) error {
 	}
 	r.ConvertToCelsius()
 	channels.SSE <- r
+
+	if ExceedsThreshold(r.Temperature) {
+		alert := modals.AlertEvent{
+			EventType:   "alert_data",
+			Temperature: r.Temperature,
+			City:        r.City,
+		}
+		channels.SSE <- alert
+	}
+
 	return nil
 }
