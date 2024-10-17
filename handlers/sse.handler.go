@@ -8,7 +8,9 @@ import (
 	"net/http"
 
 	"github.com/heyyakash/realtime-weather-aggregator/channels"
+	"github.com/heyyakash/realtime-weather-aggregator/configs"
 	"github.com/heyyakash/realtime-weather-aggregator/helpers"
+	"github.com/heyyakash/realtime-weather-aggregator/modals"
 )
 
 func EventsHandler(w http.ResponseWriter, r *http.Request) {
@@ -27,13 +29,23 @@ func EventsHandler(w http.ResponseWriter, r *http.Request) {
 			log.Print("Client disconnected")
 			return
 		case msg := <-channels.SSE:
-			log.Print(msg)
+
+			// insert data into mongodb if only it is weather data and not alert
+			go func(msg interface{}) {
+				data, ok := msg.(modals.WeatherEvent)
+				if ok {
+					if data.EventType == "weather_data" {
+						configs.WeatherDataCollection.InsertOne(context.TODO(), data)
+					}
+				}
+			}(msg)
+
 			res, err := json.Marshal(msg)
 			if err != nil {
 				log.Printf("Error marshalling message: %v", err)
-				continue // Skip this iteration on error
+				continue
 			}
-			fmt.Fprintf(w, "data: %s\n\n", res) // Ensure data is prefixed correctly for SSE
+			fmt.Fprintf(w, "data: %s\n\n", res)
 			if flusher, ok := w.(http.Flusher); ok {
 				flusher.Flush()
 			}

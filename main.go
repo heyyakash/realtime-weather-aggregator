@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/heyyakash/realtime-weather-aggregator/configs"
 	"github.com/heyyakash/realtime-weather-aggregator/handlers"
 )
 
@@ -15,11 +16,9 @@ func StartServer() {
 }
 
 func main() {
+	// connected to the database
+	configs.ConnectDB()
 
+	//start the http server
 	StartServer()
-
-	// goroutine to start fetching data until stopped
-
-	//collect data into channel
-
 }
