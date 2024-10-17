@@ -19,6 +19,10 @@
             margin-bottom: 40px;
 			gap:1rem;
         }
+        #historical-data{
+            width: 80%;
+            margin: 0 auto;
+        }
         canvas {
             background-color: #ffffff;
 			height: 300px;
@@ -38,15 +42,31 @@
             padding:2rem;
             width: 100%;
         }
+
+        .button-container{
+            display: grid;
+            gap: 2;
+            grid-template-columns: repeat(2,1fr);
+        }
+
+        .button-container button{
+            padding: .5rem;
+            outline:none;
+            border: none;
+            cursor: pointer;
+        }
+
     </style>
 </head>
 <body>
 
-    <h1 style = "text-align: center;">Weather Data Charts</h1>
+    <h1 style = "text-align: center;">Realtime Weather Data Streaming</h1>
     <div id="charts-container"></div>
 
     <h1 style = "text-align: center;">Alerts</h1>
     <div id = "alerts-container"></div>
+
+    <div id = "historical-data"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src = "script.js"></script>

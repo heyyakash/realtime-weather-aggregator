@@ -12,7 +12,7 @@ import (
 	"github.com/heyyakash/realtime-weather-aggregator/modals"
 )
 
-var Cities = []string{"Bangalore", "Delhi"}
+var Cities = []string{"Bangalore", "Delhi", "Hyderabad"}
 
 func Fetch(ctx context.Context) {
 	key := GetEnv("API_KEY")
