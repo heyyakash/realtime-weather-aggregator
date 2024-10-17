@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"time"
 
 	"github.com/heyyakash/realtime-weather-aggregator/helpers"
@@ -16,7 +17,11 @@ func Fetch() {
 	key := helpers.GetEnv("API_KEY")
 	for {
 		for _, v := range Cities {
-			go helpers.FetchWeatherData(v, key, WeatherEventChannel)
+			go func(city string) {
+				if err := helpers.FetchWeatherData(city, key, WeatherEventChannel); err != nil {
+					log.Printf("Error fetching data for %s : %v", city, err)
+				}
+			}(v)
 		}
 		time.Sleep(1 * time.Minute)
 	}
