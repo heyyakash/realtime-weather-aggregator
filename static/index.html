@@ -1,9 +1,38 @@
-<html>
-	<head>
-		<title>Weather Aggregator App</title>
-	</head>
-	<body>
-		<script src = "script.js"></script>
-	</body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Data Charts</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        #charts-container {
+            width: 80%;
+            margin: 0 auto;
+			display: grid;
+			grid-template-columns: repeat(3,1fr);
+            margin-bottom: 40px;
+			gap:1rem;
+        }
+        canvas {
+            background-color: #ffffff;
+			height: 300px;
+			width: 100%;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
 
+    <h1>Weather Data Charts</h1>
+    <div id="charts-container"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src = "script.js"></script>
+</body>
 </html>
