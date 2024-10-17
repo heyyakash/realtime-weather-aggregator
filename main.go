@@ -10,6 +10,7 @@ import (
 
 func StartServer() {
 	http.HandleFunc("/events", handlers.EventsHandler)
+	http.HandleFunc("/daily", handlers.GetAggregateData)
 	if err := http.ListenAndServe(":8080", nil); err != nil {
 		log.Fatal("Error starting the server : ", err)
 	}
