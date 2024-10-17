@@ -6,6 +6,7 @@ type WeatherEvent struct {
 	FeelsLike   float64 `json:"feelslike"`
 	City        string  `json:"city"`
 	Dt          int64   `json:"dt"`
+	Description string  `json:"description"`
 }
 
 func (w *WeatherEvent) ConvertToCelsius() {

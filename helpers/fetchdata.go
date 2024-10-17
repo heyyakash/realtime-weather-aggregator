@@ -52,18 +52,21 @@ func FetchWeatherData(city string, key string) error {
 		FeelsLike:   body.Main.FeelsLike,
 		City:        city,
 		Dt:          body.Dt,
+		Description: body.Weather[0].Main,
 	}
 	r.ConvertToCelsius()
 	channels.SSE <- r
 
-	if ExceedsThreshold(r.Temperature) {
-		alert := modals.AlertEvent{
-			EventType:   "alert_data",
-			Temperature: r.Temperature,
-			City:        r.City,
-		}
-		channels.SSE <- alert
-	}
+	// go func() {
+	// 	if ExceedsThreshold(r.Temperature) {
+	// 		alert := modals.AlertEvent{
+	// 			EventType:   "alert_data",
+	// 			Temperature: r.Temperature,
+	// 			City:        r.City,
+	// 		}
+	// 		channels.SSE <- alert
+	// 	}
+	// }()
 
 	return nil
 }
