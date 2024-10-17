@@ -15,12 +15,23 @@ async function fetchCityData(city) {
     }
 }
 
+async function AddAlert(alert){
+    console.log(alert)
+    container = document.getElementById("alerts-container")
+    container.innerHTML += `<div class = "alert-box">Temperature in <b>${alert.city}</b> has exceeded the threshold; Current Temperature : <b>${alert.temperature}</b>`
+}
+
 
 eventSource.onmessage = (e) => {
     try {
         const data = JSON.parse(e.data);
         console.log("Received JSON data:", data);
-        updateChart(data);
+        if(data.eventType === "weather_data"){
+            updateChart(data);
+        }else if(data.eventType === "alert_data"){
+            AddAlert(data)
+        }
+        
     } catch (error) {
         console.error("Error parsing JSON:", error);
     }
