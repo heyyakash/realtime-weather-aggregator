@@ -1,10 +1,10 @@
-const eventSource = new EventSource("http://localhost:8080/events");
+const eventSource = new EventSource("/events");
 const cityCharts = {};
 
 
 async function fetchCityData(city) {
     try {
-        const response = await fetch(`http://localhost:8080/daily?city=${city}`);
+        const response = await fetch(`/daily?city=${city}`);
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -16,7 +16,7 @@ async function fetchCityData(city) {
 }
 async function fetchCityHistoryData(city) {
     try {
-        const response = await fetch(`http://localhost:8080/history?city=${city}`);
+        const response = await fetch(`/history?city=${city}`);
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }

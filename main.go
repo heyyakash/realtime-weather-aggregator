@@ -9,6 +9,12 @@ import (
 )
 
 func StartServer() {
+	staticDir := "./static"
+	staticHandler := http.FileServer(http.Dir(staticDir))
+	http.Handle("/static/", http.StripPrefix("/static/", staticHandler))
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "./static/index.html")
+	})
 	http.HandleFunc("/events", handlers.EventsHandler)
 	http.HandleFunc("/history", handlers.GetHistoricalData)
 	http.HandleFunc("/daily", handlers.GetAggregateData)
