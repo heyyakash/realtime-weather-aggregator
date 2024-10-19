@@ -37,14 +37,9 @@ func Fetch(ctx context.Context) {
 
 func FetchWeatherData(city string, key string) error {
 	url := fmt.Sprintf("https://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s", city, key)
-	resp, err := http.Get(url)
-	if err != nil {
-		return err
-	}
-	defer resp.Body.Close()
 	var body modals.WeatherData
-	if err = json.NewDecoder(resp.Body).Decode(&body); err != nil {
-		return err
+	if err := FetchWeatherGetRequest(&body, url); err != nil {
+		log.Print(err)
 	}
 	r := modals.WeatherEvent{
 		EventType:   "weather_data",
@@ -66,5 +61,17 @@ func FetchWeatherData(city string, key string) error {
 		channels.SSE <- alert
 	}
 
+	return nil
+}
+
+func FetchWeatherGetRequest(body *modals.WeatherData, url string) error {
+	resp, err := http.Get(url)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+	if err = json.NewDecoder(resp.Body).Decode(&body); err != nil {
+		return err
+	}
 	return nil
 }

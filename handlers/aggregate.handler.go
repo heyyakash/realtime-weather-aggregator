@@ -29,6 +29,7 @@ func GetAggregateData(w http.ResponseWriter, r *http.Request) {
 			log.Print(err)
 		}
 	}(res)
+
 	rm, err := json.Marshal(res)
 	if err != nil {
 		log.Print(err)
