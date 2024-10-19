@@ -56,6 +56,12 @@
             cursor: pointer;
         }
 
+        .flex-center{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
     </style>
 </head>
 <body>
@@ -64,6 +70,10 @@
     <div id="charts-container"></div>
 
     <h1 style = "text-align: center;">Alerts</h1>
+    <div style="gap: 1rem " class="flex-center">
+        <input id="threshold_temp" style="padding: 4px; font-size: 1rem; width: 550px;" type="number" placeholder="Enter new threshold temperature">
+        <button onclick="updateThreshold()"  style="padding: 4px; font-size: .8rem;">Update Threshold</button>
+    </div>
     <div id = "alerts-container"></div>
 
     <h1 style = "text-align: center;">Historical Data</h1>

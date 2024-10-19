@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/heyyakash/realtime-weather-aggregator/channels"
@@ -16,6 +17,10 @@ var Cities = []string{"Delhi", "Mumbai", "Chennai", "Bangalore", "Kolkata", "Hyd
 
 func Fetch(ctx context.Context) {
 	key := GetEnv("API_KEY")
+	interval, err := strconv.Atoi(GetEnv("INTERVAL"))
+	if err != nil {
+		panic("Enter a valid interval value with seconds")
+	}
 	for {
 		select {
 		case <-ctx.Done():
@@ -23,13 +28,13 @@ func Fetch(ctx context.Context) {
 		default:
 			for _, v := range Cities {
 				go func(city string) {
-					log.Println("Fetching for : ", city)
 					if err := FetchWeatherData(city, key); err != nil {
 						log.Printf("Error fetching data for %s : %v", city, err)
 					}
 				}(v)
+
 			}
-			time.Sleep(1 * time.Minute)
+			time.Sleep(time.Duration(interval) * time.Second)
 		}
 
 	}

@@ -1,16 +1,9 @@
 package helpers
 
-import (
-	"log"
-	"strconv"
-)
+var ThresholdTtemperature float64 = 35
 
 func ExceedsThreshold(temp float64) bool {
-	threshold, err := strconv.ParseFloat(GetEnv("THRESHOLD"), 64)
-	if err != nil {
-		log.Fatal("Invalid Threshold value")
-		return false
-	}
+	threshold := float64(ThresholdTtemperature)
 	return CompareTemperatures(temp, threshold)
 }
 

@@ -33,6 +33,19 @@ async function AddAlert(alert) {
     container.innerHTML += `<div class = "alert-box">Temperature in <b>${alert.city}</b> has exceeded the threshold; Current Temperature : <b>${alert.temperature}</b>`
 }
 
+async function updateThreshold() {
+    const val= document.getElementById("threshold_temp").value
+    const result = await fetch(`/update/threshold?threshold=${val}`,{method:"PATCH"})
+    await result.text()
+    if (result.ok){
+        alert("Threshold Temperature Updated Successfully")
+        container = document.getElementById("alerts-container")
+        container.innerHTML = ""
+    }else{
+        alert(result)
+    }
+}
+
 
 eventSource.onmessage = (e) => {
     try {

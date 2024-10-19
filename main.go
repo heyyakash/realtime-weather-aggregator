@@ -18,6 +18,8 @@ func StartServer() {
 	http.HandleFunc("/events", handlers.EventsHandler)
 	http.HandleFunc("/history", handlers.GetHistoricalData)
 	http.HandleFunc("/daily", handlers.GetAggregateData)
+	http.HandleFunc("/update/threshold", handlers.UpdateThreshold)
+	log.Print("Server Started at port 8080")
 	if err := http.ListenAndServe(":8080", nil); err != nil {
 		log.Fatal("Error starting the server : ", err)
 	}
