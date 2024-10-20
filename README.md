@@ -8,21 +8,26 @@ This application serves a Realtime Weather data Aggregator for Indian metro citi
 3. MongoDB : To store json data
 
 ## Why use MongoDB?
-1. It is a NOSQL database, providing flexible schema to dump irregular weather data
-2. It provides ETL functionalities out of the box
+1. It is a NOSQL database, providing flexible schema to dump irregular weather data.
+2. It provides ETL functionalities out of the box.
 3. MongoDB's powerful aggregation pipeline supports complex data processing, like calculating averages, trends, or anomalies in weather patterns, without needing to extract and transform the data externally.
 
+## How is weather data is being streamed in realtime?
+The latest weather update is pushed to frontend through SSE (Server Side Events). Few advantages of SSE include
+- SSE supports automatic reconnection natively if the connection is lost, without the need for custom logic or handling reconnection attempts.
+- SSE is built on HTTP/1.1 and is much simpler to set up compared to WebSockets, which require a full-duplex connection.
+- SSE is optimized for unidirectional communication, making it an excellent fit for streaming real-time weather updates where the client needs to receive data continuously from the server
 
 ## Requirements to run the application
-1. Go [How to install go]("https://go.dev/doc/install")
-2. Docker (Optional) [How to install Docker?]("https://docs.docker.com/engine/install/")
-3. MongoDB Atlas cluster [How to create MongoDb Altas Cluster?]("https://www.mongodb.com/docs/guides/atlas/cluster/")
-4. MongoDB Connection string [How to get MongoDB connection string?]("https://www.geeksforgeeks.org/how-to-get-the-database-url-in-mongodb/")
+1. Go [How to install go?](https://go.dev/doc/install)
+2. Docker (Optional) [How to install Docker?](https://docs.docker.com/engine/install/)
+3. MongoDB Atlas cluster [How to create MongoDb Altas Cluster?](https://www.mongodb.com/docs/guides/atlas/cluster/)
+4. MongoDB Connection string [How to get MongoDB connection string?](https://www.geeksforgeeks.org/how-to-get-the-database-url-in-mongodb/)
 5. OpenWeatherMap API KEY 
 
 ## How to run the application through go compiler
 1. Clone this repository
-2. Go to local directory where the repository was cloned
+2. Open the project directory locally
 3. Create a `.env` file.
 4. Enter the following details in the .env file
     ``` 
@@ -53,7 +58,7 @@ This application serves a Realtime Weather data Aggregator for Indian metro citi
 
 ## How to run the application through Docker
 1. Clone this repository
-2. Go to local directory where the repository was cloned
+2. Open the project directory locally
 3. Create a `.env` file.
 4. Enter the following details in the .env file
     ``` 
@@ -83,6 +88,13 @@ This application serves a Realtime Weather data Aggregator for Indian metro citi
 8. Head over to `http://localhost:8080/static/` to launch the web interface, which instantly subscribes to the weather updates
 
 ## Screenshots
+### Realtime weather updates
+![Screenshot from 2024-10-20 09-15-04](https://github.com/user-attachments/assets/7d270208-fabc-40b4-af54-f5b15347954c)
+### Realtime Alerts
+![Screenshot from 2024-10-20 09-15-13](https://github.com/user-attachments/assets/7d66f410-3927-4aca-bc91-a86433b3e7a7)
+### Historical Data
+![Screenshot from 2024-10-20 09-52-53](https://github.com/user-attachments/assets/b59e3cb3-ff5e-4816-8cbb-150e8fa695d8)
+
 
 ## Functionalities
 1. Realtime Weather Data updates visualization.
