@@ -1,6 +1,6 @@
 # Realtime Weather Aggregator Application
 ## Introduction
-This application serves a Realtime Weather data Aggregator for Indian metro cities (Delhi,Mumbai, Chennai, Bangalore, Kolkata, Hyderabad). It is written in Golang and utilizes SSE (Server Side Events) to stream weather updates as well as alerts to users.
+This application serves as a real-time weather data Aggregator for Indian metro cities (Delhi,Mumbai, Chennai, Bangalore, Kolkata, Hyderabad). It is written in Golang and utilizes SSE (Server Side Events) to stream weather updates as well as alerts to users.
 
 ## Tools used
 1. ChartJS : To visualize weather data
@@ -99,5 +99,6 @@ The latest weather update is pushed to frontend through SSE (Server Side Events)
 ## Functionalities
 1. Realtime Weather Data updates visualization.
 2. Visual Alerts issued, when the temperature of a city exceeds user defined threshold.
-3. Daily aggregates such as `min_temp`,`max_temp,`feels_like`, `dominant_weather`, calculated and displayed on the fly.
+3. Daily aggregates such as `min_temp`,`max_temp`,`feels_like`, `dominant_weather`, are calculated and displayed on the fly.
 4. Historical data can be accessed and visualized.
+5. User can configure the interval at which the updates are polled through env
