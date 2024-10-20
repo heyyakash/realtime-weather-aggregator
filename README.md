@@ -25,7 +25,16 @@ The latest weather update is pushed to frontend through SSE (Server Side Events)
 4. MongoDB Connection string [How to get MongoDB connection string?](https://www.geeksforgeeks.org/how-to-get-the-database-url-in-mongodb/)
 5. OpenWeatherMap API KEY 
 
-## How to run the application through go compiler
+## Running the application
+### Setting up MongoDB
+The application requires MongoDB Connection string.
+#### Using MongoDB Atlas
+- After creating a cluster on MongoDB Atlas, click on connect and select Connect with driver
+- Copy the connection string from there and paste into the .env file
+- Remember to fill all the fields in the connection string (it requries password to be embedded in it)
+
+
+### How to run the application through go compiler
 1. Clone this repository
 2. Open the project directory locally
 3. Create a `.env` file.
@@ -45,18 +54,22 @@ The latest weather update is pushed to frontend through SSE (Server Side Events)
     ``` bash
     go build -o main .
     ```
-4. A go executable called `main` must have been generated, to run the executable, run the following on your termninal
+6. A go executable called `main` must have been generated, to run the executable, run the following on your termninal
     ``` bash
     ./main
     ```
-5. If the application has started successfully, you'll get following message. By default, the server will run on port 8080
+7. If the application has started successfully, you'll get following message. By default, the server will run on port 8080
     ``` bash
     2024/10/20 09:32:11 Pinged your deployment. You successfully connected to MongoDB!
     2024/10/20 09:32:11 Server Started at port 8080
     ```
-6. Head over to `http://localhost:8080/static/` to launch the web interface, which instantly subscribes to the weather updates
+8. Head over to `http://localhost:8080/static/` to launch the web interface, which instantly subscribes to the weather updates
+9. To test the program run
+    ``` bash
+    go test ./...
+    ```
 
-## How to run the application through Docker
+### How to run the application through Docker
 1. Clone this repository
 2. Open the project directory locally
 3. Create a `.env` file.
