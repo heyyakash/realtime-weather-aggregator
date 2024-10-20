@@ -80,3 +80,12 @@ This application serves a Realtime Weather data Aggregator for Indian metro citi
     2024/10/20 04:09:56 Pinged your deployment. You successfully connected to MongoDB!
     2024/10/20 04:09:56 Server Started at port 8080
     ```
+8. Head over to `http://localhost:8080/static/` to launch the web interface, which instantly subscribes to the weather updates
+
+## Screenshots
+
+## Functionalities
+1. Realtime Weather Data updates visualization.
+2. Visual Alerts issued, when the temperature of a city exceeds user defined threshold.
+3. Daily aggregates such as `min_temp`,`max_temp,`feels_like`, `dominant_weather`, calculated and displayed on the fly.
+4. Historical data can be accessed and visualized.
